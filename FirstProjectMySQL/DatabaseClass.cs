@@ -9,14 +9,50 @@ using MySql.Data.MySqlClient;
 namespace FirstProjectMySQL
 {
     
-    class DatabaseClass
+    public class DatabaseClass
     {
-        protected string cnstring;
-        protected MySqlConnection con;
+        protected static string srvlink;
+        protected static MySqlConnection srvconnection;
+        protected static MySqlCommand sqlcommand;
+        protected static MySqlDataReader sqldata;
+        protected static MySqlDataAdapter sqladapter;
 
-        public void OpenCon()
+
+        public static void OpenCon()
         {
-            cnstring = "";
+            srvlink = "Server=127.0.0.1;Port=3306;Database=mysqlproject;Uid=root;Pwd=root123;";
+            srvconnection = new MySqlConnection(srvlink);
+            srvconnection.Open();
         }
+
+        public static void CloseCon()
+        {
+            srvconnection.Close();
+            srvlink = string.Empty;
+        }
+
+        public static string ExecSQL(string column, string table, string condition) 
+        {
+            OpenCon();
+            string sql = "SELECT " + column + " FROM " + table + " WHERE " + condition + "";
+            sqlcommand = new MySqlCommand(sql, srvconnection);
+            string username = (string)sqlcommand.ExecuteScalar();
+            return username;
+        }
+
+        public static void InsertSQL(string table, string column, string data)
+        {
+            
+            OpenCon();
+            string sql = "INSERT INTO " + table + " (" + column + ") VALUES (" + data + ")";
+            sqlcommand = new MySqlCommand(sql , srvconnection);
+            sqladapter = new MySqlDataAdapter();
+            sqladapter.InsertCommand = sqlcommand;
+            sqladapter.InsertCommand.ExecuteNonQuery();
+            sqlcommand.Dispose();
+            CloseCon();
+
+        }
+        
     }
 }

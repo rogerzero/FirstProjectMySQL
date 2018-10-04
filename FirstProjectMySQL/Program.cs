@@ -16,7 +16,7 @@ namespace FirstProjectMySQL
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddAccount());
+            Application.Run(new Login());
         }
     }
 }
