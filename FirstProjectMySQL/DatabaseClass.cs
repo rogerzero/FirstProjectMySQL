@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MySql.Data;
+using System.Data;
 using MySql.Data.MySqlClient;
+using System.ComponentModel;
 
 namespace FirstProjectMySQL
 {
@@ -52,6 +53,27 @@ namespace FirstProjectMySQL
             sqlcommand.Dispose();
             CloseCon();
 
+        }
+
+        public static void UpdateSQL()
+        {
+
+
+        }
+
+        public static void DeleteSQL()
+        {
+
+        }
+
+        public static void GetData(string column, string table, string condition, object grid)
+        {
+            OpenCon();
+            string sql = "SELECT " + column + " FROM " + table + " WHERE " + condition + "";
+            sqlcommand = new MySqlCommand(sql, srvconnection);
+            sqladapter = new MySqlDataAdapter(sqlcommand);
+            DataTable datatable = new DataTable();
+            sqladapter.Fill(datatable);
         }
         
     }

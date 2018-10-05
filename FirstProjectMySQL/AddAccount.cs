@@ -30,8 +30,6 @@ namespace FirstProjectMySQL
         public AddAccount()
         {
             InitializeComponent();
-            Username = textUsername.Text;
-            Password = textPassword.Text;
         }
 
         private void AddAccount_Load(object sender, EventArgs e)
@@ -59,11 +57,16 @@ namespace FirstProjectMySQL
 
         private void buttonSimpan_Click(object sender, EventArgs e)
         {
+
+            
             if (textPassword.Text != textUlangPassword.Text)
             {
                 MessageBox.Show("Password tidak sama");
                 return;
             }
+
+            Username = textUsername.Text;
+            Password = textPassword.Text;
 
             DatabaseClass.InsertSQL(
                 "account",

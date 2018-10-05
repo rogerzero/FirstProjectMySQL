@@ -42,7 +42,10 @@ namespace FirstProjectMySQL
             Username = textUsername.Text;
             Password = textPassword.Text;
 
-            string username = DatabaseClass.ExecSQL("username", "account", "username='" + Username + "' AND password =MD5('" + Password + "')");
+            string username = DatabaseClass.ExecSQL(
+                "username",
+                "account",
+                "username='" + Username + "' AND password =MD5('" + Password + "')");
             if (username == null)
             {
                 MessageBox.Show("Password Salah");
